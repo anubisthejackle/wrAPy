@@ -10,8 +10,8 @@ except ImportError:
 class Api(object):
 	__metaclass__ = ABCMeta
 
-        def call(self, name, path, options):
-            def get(self, path, options):
+        def call(self, name, path, options=None):
+            def get(self, path, options=None):
                 buffer = BytesIO()
                 c = pycurl.Curl()
                 c.setopt(c.URL, path)
@@ -27,7 +27,7 @@ class Api(object):
                         result = None
                 return result
         
-            def post(self, path, options, json):
+            def post(self, path, options=None):
                 return False;
 
             if name == "get":
