@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import json
 import pycurl
+
 try:
     from io import BytesIO
 except ImportError:
@@ -9,14 +10,25 @@ except ImportError:
 class Api(object):
 	__metaclass__ = ABCMeta
 
-        def __getattr__(self, name):
-            def get(self, path, options, json):
+        def call(self, name, path, options):
+            def get(self, path, options):
                 buffer = BytesIO()
                 c = pycurl.Curl()
                 c.setopt(c.URL, path)
                 c.setopt(c.WRITEDATA, buffer)
                 c.perform()
                 c.close()
-                return json.load(buffer)
+                try:
+                    result = json.load(buffer)
+                except ValueError:
+                    try:
+                        result = json.loads(buffer.getvalue())
+                    except ValueError:
+                        result = None
+                return result
+        
             def post(self, path, options, json):
+                return False;
 
+            if name == "get":
+                return get(self, path, options)
