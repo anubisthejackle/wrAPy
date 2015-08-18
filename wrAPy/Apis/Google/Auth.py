@@ -9,3 +9,12 @@ class Auth(Api):
     # Returns the URL to redirect connect requests to
     def connect(self, params):
         return 'https://accounts.google.com/o/oauth2/auth?' + urllib.urlencode(options)
+
+    def refresh(self, token, client_id, client_secret):
+        data = { 
+                "refresh_token":token,
+                "client_id":client_id,
+                "client_secret":client_secret,
+                "grant_type":"refresh_token"
+               }
+        return Api.call(self, 'post', 'https://www.googleapis.com/oauth2/v3/token', urllib.urlencode(data))
