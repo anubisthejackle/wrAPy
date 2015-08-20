@@ -1,7 +1,4 @@
 from wrAPy.Apis.Google import Auth
 
-api = Auth()
+print Auth().get('/token', {'foo':'bar'})
 
-result = api.get('/token', {'foo':'bar'})
-
-print result
