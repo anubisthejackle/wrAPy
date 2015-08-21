@@ -36,7 +36,8 @@ class Api:
                 setOptions(options)
 
             def setOptions(options):
-                c.setopt(c.POSTFIELDS, options)
+                print options
+                c.setopt(c.POSTFIELDS, urllib.urlencode(options))
 
             if name.lower() == "get":
                 path = get(path, options)

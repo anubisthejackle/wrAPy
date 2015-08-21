@@ -8,7 +8,7 @@ class Auth(Api):
         return wrapper
     # Returns the URL to redirect connect requests to
     def connect(self, params):
-        return 'https://accounts.google.com/o/oauth2/auth?' + urllib.urlencode(options)
+        return 'https://accounts.google.com/o/oauth2/auth?' + urllib.urlencode(params)
 
     def refresh(self, token, client_id, client_secret):
         data = { 
